@@ -22,26 +22,33 @@ var GreeterForm = React.createClass({
 
     var name = this.refs.name.value;
     var message = this.refs.message.value;
+    var updates = {};
 
     if (name.length > 0) {
       this.refs.name.value = '';
-      this.props.onNewName(name);
+      //this.props.onNewName(name);
+      updates.name = name;
     }
 
     if (message.length > 0) {
       this.refs.message.value = '';
-      this.props.onNewMessage(message);
+      //this.props.onNewMessage(message);
+      updates.message = message;
     }
+
+    this.props.onUpdateState(updates);
   },
 
   render: function () {
     return (
       <form onSubmit={this.onFormSubmit}>
-        <input type='text' ref='name'/>
-        <button>Set Name</button>
+        <input type='text' ref='name' placeholder="Enter name here"/>
+        {/*<button>Set Name</button>*/}
         <br/>
-        <input type='text' ref='message'/>
-        <button>Set Message</button>
+        <textarea ref='message' placeholder="Enter message here"/>
+        {/*<button>Set Message</button>*/}
+        <br/><br/>
+        <button>Update</button>
       </form>
     )
   }
@@ -53,7 +60,7 @@ var Greeter = React.createClass({
     return {
       name: 'React',
       message: 'Default message given by Component defaults',
-      text: "Sample text to be fetch by 'this.props'"
+      text: "Lorem ipsum sample text to be fetch by 'this.props'"
     }
   },
 
@@ -64,6 +71,8 @@ var Greeter = React.createClass({
     }
   },
 
+  /* Refactoring code, disabling the following two functions. But leaving here
+   * for historical purposes, besides using a code version control system
   handleNewName: function (name) {
     this.setState({
       name: name
@@ -74,6 +83,11 @@ var Greeter = React.createClass({
     this.setState({
       message: message
     });
+  }, */
+
+
+  handleUpdateState: function (stateData) {
+    this.setState(stateData);
   },
 
   render: function () {
@@ -85,9 +99,11 @@ var Greeter = React.createClass({
     return (
       <div>
         <GreeterMessage name={name} message={message} text={text}/>
-        <GreeterForm onNewName={this.handleNewName}
+        <GreeterForm onUpdateState={this.handleUpdateState}/>
+        {/*<GreeterForm onNewName={this.handleNewName}
                      onNewMessage={this.handleNewMessage}
-        />
+                     onUpdateState={this.handleUpdateState}
+        />*/}
       </div>
     );
   }
