@@ -1,3 +1,25 @@
+var GreeterMessage = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <h1>Some H1</h1>
+        <p>Some P</p>
+      </div>
+    );
+  }
+});
+
+var GreeterForm = React.createClass({
+  render: function () {
+    return (
+      <form>
+        <input type='text' ref='name'/>
+        <button>Set Name</button>
+      </form>
+    )
+  }
+});
+
 var Greeter = React.createClass({
 
   getDefaultProps: function () {
@@ -37,12 +59,16 @@ var Greeter = React.createClass({
         <h1>Hello {name}!</h1>
         <p>{message}</p>
 
+        <GreeterMessage/>
+
         <form onSubmit={this.onButtonClick}>
           {/* `ref` is a react referencer to the tag element. In this case, the
               following input would be accessible by the `name` reference */}
           <input type='text' ref='name'/>
           <button>Set Name</button>
         </form>
+
+        <GreeterForm/>
       </div>
     );
   }
